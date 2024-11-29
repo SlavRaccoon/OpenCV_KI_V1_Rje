@@ -1,10 +1,11 @@
 import cv2
-
+import time
+import keyboard
 face_classifier = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
 
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture(1)
 
 def detect_bounding_box(vid):
     gray_image = cv2.cvtColor(vid, cv2.COLOR_BGR2GRAY)
@@ -19,15 +20,30 @@ while True:
     if result is False:
         break 
 
-    faces = detect_bounding_box(
-        video_frame
-    )
+    faces = detect_bounding_box(video_frame)
 
-    cv2.imshow(
-        "My Face Detection Project", video_frame
-    ) 
+    if cv2.waitKey(8) & 0xFF == ord("r"):
+        for x in range(0,480):
+            for y in range(0, 640):
+                c = video_frame[x,y][2]
+                video_frame[x,y] = [0, 0, c]
+    if cv2.waitKey(8) & 0xFF == ord("g"):
+        if keyboard.is_pressed("g"):
+            for x in range(0,480):
+                for y in range(0, 640):
+                    c = video_frame[x,y][1]
+                    video_frame[x,y] = [0, c, 0]
+    if cv2.waitKey(8) & 0xFF == ord("b"):
+        if keyboard.is_pressed("b"):
+            for x in range(0,480):
+                for y in range(0, 640):
+                    c = video_frame[x,y][0]
+                    video_frame[x,y] = [c, 0, 0]
+    
 
-    if cv2.waitKey(1) & 0xFF == ord("q"):
+    cv2.imshow("My Face Detection Project", video_frame) 
+    #print(time.time())
+    if cv2.waitKey(5) & 0xFF == ord("q"):
         break
 
 video_capture.release()
