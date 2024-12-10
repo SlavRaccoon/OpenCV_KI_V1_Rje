@@ -21,25 +21,31 @@ while True:
         break 
 
     faces = detect_bounding_box(video_frame)
-
-    if cv2.waitKey(8) & 0xFF == ord("r"):
-        for x in range(0,480):
-            for y in range(0, 640):
-                c = video_frame[x,y][2]
-                video_frame[x,y] = [0, 0, c]
-    if cv2.waitKey(8) & 0xFF == ord("g"):
-        if keyboard.is_pressed("g"):
-            for x in range(0,480):
-                for y in range(0, 640):
-                    c = video_frame[x,y][1]
-                    video_frame[x,y] = [0, c, 0]
-    if cv2.waitKey(8) & 0xFF == ord("b"):
-        if keyboard.is_pressed("b"):
-            for x in range(0,480):
-                for y in range(0, 640):
-                    c = video_frame[x,y][0]
-                    video_frame[x,y] = [c, 0, 0]
     
+    if keyboard.is_pressed("r"):
+        video_frame[:,:,1] = 0
+        video_frame[:,:,0] = 0
+        #for x in range(0,480):
+         #   for y in range(0, 640):
+          #      c = video_frame[x,y][2]
+           #     video_frame[x,y] = [0, 0, c]
+    if keyboard.is_pressed("g"):
+        video_frame[:,:,0] = 0
+        video_frame[:,:,2] = 0
+        #if keyboard.is_pressed("g"):
+         #   for x in range(0,480):
+          #      for y in range(0, 640):
+           #         c = video_frame[x,y][1]
+            #        video_frame[x,y] = [0, c, 0]
+    if keyboard.is_pressed("b"):
+        video_frame[:,:,1] = 0
+        video_frame[:,:,2] = 0
+        #if keyboard.is_pressed("b"):
+         #   for x in range(0,480):
+          #      for y in range(0, 640):
+           #         c = video_frame[x,y][0]
+            #        video_frame[x,y] = [c, 0, 0]
+    cv2.waitKey(10)
 
     cv2.imshow("My Face Detection Project", video_frame) 
     #print(time.time())
