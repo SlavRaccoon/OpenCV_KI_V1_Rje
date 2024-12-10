@@ -6,7 +6,8 @@ face_classifier = cv2.CascadeClassifier(
 )
 
 video_capture = cv2.VideoCapture(1)
-
+#uzeo određeni model kojim je iz tog lica izvadil godine, spol i emociju, standard sličica. HSEmotion, Mediapipe
+#https://drive.google.com/drive/folders/16qqswNHvUCGQI4iCekXdd6T_-ePKZrzz
 def detect_bounding_box(vid):
     gray_image = cv2.cvtColor(vid, cv2.COLOR_BGR2GRAY)
     faces = face_classifier.detectMultiScale(gray_image, 1.1, 5, minSize=(40, 40))
